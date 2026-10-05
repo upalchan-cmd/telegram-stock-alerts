@@ -2,9 +2,7 @@ import requests
 from vcpnifty500_ml import run_technical_vcp_filters
 
 TELEGRAM_BOT_TOKEN = "8771040771:AAGpHJgC255W-RQW4uiijo-26z07Mvnk2qQ"
-TELEGRAM_CHAT_ID = (
-    "YOUR_CHAT_ID_HERE"  # ನಿಮ್ಮ ಟೆಲಿಗ್ರಾಮ್ ಚಾಟ್ ಐಡಿಯನ್ನು ಇಲ್ಲಿ ಹಾಕಿ
-)
+TELEGRAM_CHAT_ID = "5571350680"
 
 
 def send_telegram_message(message):
@@ -23,18 +21,18 @@ if __name__ == "__main__":
   if not shortlisted_stocks:
     print("No stocks matched the master technical filters today.")
     send_telegram_message(
-        "📊 *Nifty 500 VCP Scan:* No stocks matched the filters today."
+        "📊 *Nifty 500 VCP Scan Report*\nಇಂದಿನ ಸ್ಕ್ಯಾನಿಂಗ್‌ನಲ್ಲಿ ಯಾವುದೇ"
+        " ಸ್ಟಾಕ್‌ಗಳು ಮಾಸ್ಟರ್ ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಪಾಸ್ ಮಾಡಿಲ್ಲ."
     )
   else:
+    send_telegram_message(
+        f"🚀 *Nifty 500 VCP Scan Report*\nಒಟ್ಟು {len(shortlisted_stocks)}"
+        " ಸ್ಟಾಕ್‌ಗಳು ಸೆಲೆಕ್ಟ್ ಆಗಿವೆ!"
+    )
     for stock in shortlisted_stocks:
       msg = (
-          f"🚀 *Nifty 500 VCP Master Alert*\n"
-          f"🔹 *Stock:* {stock['symbol']}\n"
-          f"💰 *Price:* ₹{stock['price']}\n"
-          f"📊 *RVOL:* {stock['rvol']}\n"
-          f"📈 *RSI:* {stock['rsi']}\n"
-          f"🏢 *Market Cap:* ₹{stock['market_cap']} Cr\n"
-          f"Status: Technical & VCP Setup Passed!"
+          f"🔹 *Stock:* {stock['symbol']}\n💰 *Price:* ₹{stock['price']}\n📊"
+          f" *RVOL:* {stock['rvol']}\n📈 *RSI:* {stock['rsi']}\n🏢 *Market"
+          f" Cap:* ₹{stock['market_cap']} Cr"
       )
-      print(msg)
       send_telegram_message(msg)
